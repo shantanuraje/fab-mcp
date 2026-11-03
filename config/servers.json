@@ -1,0 +1,33 @@
+{
+  "_comment": "Canonical fab-mcp server registry. Single source of truth. The wire-agents.py generator reads this and writes the correct MCP config into each agent (Claude Code, Codex, OpenCode, Gemini). Edit here, then re-run: python3 scripts/wire-agents.py",
+  "servers": {
+    "freecad": {
+      "enabled": true,
+      "command": "uvx",
+      "args": ["freecad-mcp"],
+      "env": {},
+      "description": "FreeCAD parametric CAD control (neka-nat/freecad-mcp)",
+      "runtime_prereq": "Launch FreeCAD GUI -> select 'MCP Addon' workbench -> click 'Start RPC Server'. The uvx server connects to FreeCAD's in-app RPC socket.",
+      "upstream": "https://github.com/neka-nat/freecad-mcp"
+    },
+    "blender": {
+      "enabled": true,
+      "command": "uvx",
+      "args": ["blender-mcp"],
+      "env": {},
+      "description": "Blender 3D modeling control (ahujasid/blender-mcp)",
+      "runtime_prereq": "Launch Blender -> N-panel -> BlenderMCP tab -> click 'Connect to Claude'. Addon listens on localhost:9876.",
+      "upstream": "https://github.com/ahujasid/blender-mcp"
+    },
+    "bambu": {
+      "enabled": false,
+      "_enabled_note": "Set to true ONLY after filling config/.env with real printer values. Wrong BAMBU_MODEL can crash the bed into the nozzle.",
+      "command": "npx",
+      "args": ["-y", "@rowbotik/bambu-printer-mcp"],
+      "env_from_dotenv": ["PRINTER_HOST", "BAMBU_SERIAL", "BAMBU_TOKEN", "BAMBU_MODEL", "BED_TYPE", "SLICER_TYPE", "SLICER_PATH"],
+      "description": "Bambu Lab printer control + slicing (rowbotik/bambu-printer-mcp, a fork of DMontgomery40/bambu-printer-mcp)",
+      "runtime_prereq": "Printer: Settings -> Network -> enable LAN Only Mode + Developer Mode. Copy Access Code -> BAMBU_TOKEN. Fill config/.env.",
+      "upstream": "https://github.com/rowbotik/bambu-printer-mcp"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+# secrets
+config/.env
+# vendored upstream addons (re-fetched by install-addons.sh)
+addons/vendor/
+# agent config backups
+*.fab-mcp.bak
+# generated artifacts (STL/3MF/gcode/renders)
+out/
+
+# Local agent context and handoff notes (contain personal paths)
+/CLAUDE.md
+/HANDOFF.md
+
+# python bytecode
+__pycache__/
